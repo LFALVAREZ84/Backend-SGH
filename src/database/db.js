@@ -1,18 +1,15 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const uri = process.env.PORTDB;
-const db = process.env.DB;
-
-const conectDb = async () => {
+const connectDb = async () => {
   try {
-    await mongoose.connect(`${uri}/${db}`, {
+    await mongoose.connect('mongodb://localhost:27017/hotel', {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     });
-    console.log("DB is connected");
+    console.log('Conexión a la base de datos establecida');
   } catch (error) {
-    console.log(error);
+    console.error('Error al conectar a la base de datos:', error);
   }
 };
 
-module.exports = conectDb;
+module.exports = connectDb;
