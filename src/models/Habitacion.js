@@ -1,11 +1,20 @@
 const mongoose = require('mongoose');
 
-const habitacionSchema = new mongoose.Schema({
-  numero: { type: String, required: true },
-  tipo: { type: String, required: true },
-  // Otros campos de la habitación
+const {Schema} = mongoose;
+  
+
+
+const habitacionSchema = new Schema({
+  nombre: String,
+  numero: String,
+  precio: Number,
+  descripcion: String,
+  img1: String,  // Almacena la ruta o URL de la imagen 1
+  img2: String,  // Almacena la ruta o URL de la imagen 2
+  img3: String   // Almacena la ruta o URL de la imagen 
 });
 
-const Habitacion = mongoose.model('Habitacion', habitacionSchema);
+const Habitacion = mongoose.model('Habitaciones', habitacionSchema);
 
 module.exports = Habitacion;
+ 

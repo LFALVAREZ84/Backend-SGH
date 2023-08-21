@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const uri = "mongodb://localhost:27017/SGH"
-
+const uri = process.env.PORTDB;
+const db = process.env.DB;
 
 
 const connectDb = async () => {
   try {
-    mongoose.connect(uri)
+    mongoose.connect(`${uri}/${db}`,{useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => console.log('estamos conectados a la base de datos'));
 
   }
