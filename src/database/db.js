@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
+const uri = "mongodb://localhost:27017/SGH"
+
+
 
 const connectDb = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/hotel', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    console.log('Conexión a la base de datos establecida');
-  } catch (error) {
-    console.error('Error al conectar a la base de datos:', error);
+    mongoose.connect(uri)
+      .then(() => console.log('estamos conectados a la base de datos'));
+
   }
+  
+ catch (error) {
+  console.log(error);
+}
 };
 
 module.exports = connectDb;
