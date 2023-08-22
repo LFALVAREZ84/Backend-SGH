@@ -6,6 +6,7 @@ const uri = process.env.PORTDB;
 const db = process.env.DB;
 
 
+
 const connectDb = async () => {
   try {
     await mongoose.connect(`${uri}/${db}`, { useNewUrlParser: true, useUnifiedTopology: true })
