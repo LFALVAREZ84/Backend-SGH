@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const HabitacionModel = require("../models/Habitacion");
+const UsuarioModel = require("../models/Usuario.JS");
 
 const uri = process.env.PORTDB;
 const db = process.env.DB;
@@ -12,6 +13,9 @@ const connectDb = async () => {
 
     const allHabitaciones = await HabitacionModel.find(); //buscamos todos los documentos de la coleccion
     console.log(allHabitaciones);
+
+    const allUsuarios = await UsuarioModel.find(); //buscamos todos los documentos de la coleccion
+    console.log(allUsuarios);
 
 
   }
