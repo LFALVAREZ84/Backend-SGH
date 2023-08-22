@@ -1,4 +1,4 @@
-const Usuario = require('../models/Usuario'); // Importa el modelo de usuarios
+const Usuario = require('../models/Usuario.JS'); // Importa el modelo de usuarios
 
 const usuariosController = {
   getAllUsuarios: async (req, res) => {

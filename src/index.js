@@ -31,11 +31,10 @@ const initApp = async () => {
 
 initApp();
 
-// Resto del código...
-
 // Middlewares
 app.use(express.json());
 
 // Rutas
 app.use('/api', require('./routes/habitacionesRoutes'));
-app.use('/api', require('./routes/usuariosRoutes'));
+app.use('/api', require('./routes/UsuariosRoutes'));
+
