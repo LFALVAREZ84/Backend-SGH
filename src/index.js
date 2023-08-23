@@ -49,4 +49,4 @@ app.use(express.json());
 
 // Rutas
 app.use('/api', require('./routes/habitacionesRoutes'));
-app.use('/api', require('./routes/UsuariosRoutes')); /
+app.use('/api', require('./routes/UsuariosRoutes')); 
