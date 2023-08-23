@@ -9,6 +9,7 @@ const clienteController = {
       res.status(500).json({ error: 'Error al obtener las habitaciones disponibles' });
     }
   },
+
   // Otras funciones para clientes
 };
 
