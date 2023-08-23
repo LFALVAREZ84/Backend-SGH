@@ -1,4 +1,5 @@
 const Habitacion = require('../models/Habitacion');
+const Reserva = require('../models/Reserva');
 
 const adminController = {
   // Obtener todas las habitaciones
@@ -48,6 +49,56 @@ const adminController = {
       res.status(200).json({ message: 'Habitación eliminada exitosamente' });
     } catch (error) {
       res.status(500).json({ error: 'Error al eliminar la habitación' });
+    }
+  },
+  obtenerTodasLasReservas: async (req, res) => {
+    try {
+      const reservas = await Reserva.find().populate('habitacion cliente');
+      res.status(200).json(reservas);
+    } catch (error) {
+      res.status(500).json({ error: 'Error al obtener las reservas' });
+    }
+  },
+
+  cancelarReserva: async (req, res) => {
+    const { reservaId } = req.params;
+    try {
+      const reserva = await Reserva.findByIdAndUpdate(reservaId, { activa: false });
+      if (!reserva) {
+        return res.status(404).json({ error: 'Reserva no encontrada' });
+      }
+      // Liberar la habitación
+      const habitacion = await Habitacion.findById(reserva.habitacion);
+      habitacion.disponible = true;
+      await habitacion.save();
+      res.status(200).json({ message: 'Reserva cancelada exitosamente' });
+    } catch (error) {
+      res.status(500).json({ error: 'Error al cancelar la reserva' });
+    }
+  },
+
+  crearReserva: async (req, res) => {
+    const { habitacionId, fechaInicio, fechaFin } = req.body;
+    try {
+      const habitacion = await Habitacion.findById(habitacionId);
+      if (!habitacion) {
+        return res.status(404).json({ error: 'Habitación no encontrada' });
+      }
+      if (!habitacion.disponible) {
+        return res.status(400).json({ error: 'Habitación no disponible para reserva' });
+      }
+      const nuevaReserva = new Reserva({
+        habitacion: habitacionId,
+        fechaInicio,
+        fechaFin,
+        cliente: req.user._id,
+      });
+      await nuevaReserva.save();
+      habitacion.disponible = false;
+      await habitacion.save();
+      res.status(201).json(nuevaReserva);
+    } catch (error) {
+      res.status(500).json({ error: 'Error al realizar la reserva' });
     }
   },
 };
