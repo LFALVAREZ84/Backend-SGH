@@ -1,4 +1,5 @@
 const Habitacion = require('../models/Habitacion');
+const Reserva = require('../models/Reserva'); // Importa el modelo Reserva
 
 const clienteController = {
   obtenerHabitacionesDisponibles: async (req, res) => {

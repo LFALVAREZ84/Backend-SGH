@@ -19,6 +19,8 @@ router.get('/reservas', passport.authenticate('local'), adminController.obtenerT
 
 // Cancelar una reserva por su ID
 router.put('/reservas/:reservaId', passport.authenticate('local'), adminController.cancelarReserva);
+// Cancelar una reserva por su ID
+router.put('/reservas/:id/cancelar', isAdmin ,adminController.cancelarReserva);
 
 // Crear una nueva reserva
 router.post('/reservas',  passport.authenticate('local'),adminController.crearReserva);

@@ -60,6 +60,7 @@ const adminController = {
     }
   },
 
+
   cancelarReserva: async (req, res) => {
     const { reservaId } = req.params;
     try {
@@ -99,6 +100,28 @@ const adminController = {
       res.status(201).json(nuevaReserva);
     } catch (error) {
       res.status(500).json({ error: 'Error al realizar la reserva' });
+    }
+  },
+  cancelarReserva: async (req, res) => {
+    const { id } = req.params;
+    try {
+      // Buscar la reserva por su ID
+      const reserva = await Reserva.findById(id);
+      if (!reserva) {
+        return res.status(404).json({ error: 'Reserva no encontrada' });
+      }
+
+      // Marcar la habitación como disponible nuevamente
+      const habitacion = await Habitacion.findById(reserva.habitacion);
+      habitacion.disponible = true;
+      await habitacion.save();
+
+      // Eliminar la reserva
+      await reserva.remove();
+
+      res.status(200).json({ message: 'Reserva cancelada exitosamente' });
+    } catch (error) {
+      res.status(500).json({ error: 'Error al cancelar la reserva' });
     }
   },
 };
